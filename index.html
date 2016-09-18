@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Directory Card</title>
+    <link rel="stylesheet" href="./src/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./src//css/global.css" rel="stylesheet" />    
+  </head>
+<body>
+  <section id="page-container">
+    
+    <div id="app" class="container">
+        <div>
+            <button type="button" class="btn btn-primary" id="addcard">Add Card </button>
+            <button type="button" class="btn btn-success" id="viewcard">View Cards </button>
+        </div>
+        <div class="container loader-image">
+              <button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+        </div> 
+        <div class="alert alert-success" role="alert"> Congratulations! Card added successfully. Please click on View Cards button </div>
+        <div class="alert alert-warning" role="alert">Sorry! You dont have cards added to your Page. Please click Add Card button to add new card</div>
+        <div class="row"> 
+        </div>
+    </div>     
+   
+	<!-- Add Card Template -->
+    <script id="search-template" type="text/template">
+      <div class="input-section">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1"> Enter GitHub Name to Search :  </span>
+           <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="username"/>
+        </div>        
+         <button type="button" id="submit" class="btn btn-info">Search</button>  
+      </div>          
+    </script>
+	<!--User Card Template -->
+    <script id="card-template" type="text/template">       
+        <div class="card">          
+          <a href="<%= userData.html_url %>">
+            <img class="card-img-top" src='<%= userData.avatar_url %>' alt="<%= userData.name %>">
+          </a>    
+          <div class="card-block">
+            <h4 class="card-title"><%= userData.name %></h4>
+            <p class="card-text"><%= userData.bio %></p>
+          </div>
+            <!-- list -->
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email : <%= userData.email %> </li>
+            <li class="list-group-item">GitHub URL : <%= userData.html_url %></li>
+            <li class="list-group-item">GitHub Id : <%= userData.id %></li>
+             <li class="list-group-item">Current Location : <%= userData.location %></li>
+          </ul>
+
+          <div class="card-block">
+              <% if(isSingle) { %>
+                 <input type="text" hidden class="id" value="<%= userData.id %>"/> 
+                  <a href="#" class="btn btn-success add-card">
+                    Add Card To Page
+                  </a>
+              <% } else { %>
+                  <a href="#" class="btn btn-danger remove-card">
+                    <span class="id" style="display:none"> <%= userData.id %> </span>
+                    Remove Card
+                  </a>
+              <% } %>
+          </div>
+        </div>
+    </script>
+
+	</section>
+  <!-- Loading JS Files -->
+  <script src="./src/lib/underscore-min.js"></script>
+  <script src="./src/lib/jquery.min.js"></script>
+  <script src="./src/lib/backbone-min.js"></script>
+  <script src="./src/js/collection/card-collection.js"></script>
+  <script src="./src/js/model/user-model.js"></script>
+  <script src="./src/js/views/add-card.js"></script>
+  <script src="./src/js/views/card-list.js"></script>
+  <script src="./src/js/views/card-lists.js"></script>
+  <script src="./src/js/views/user-view.js"></script>
+  <script src="./src/js/global.js"></script>  
+</body>
+</html>
