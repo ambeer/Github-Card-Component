@@ -61,7 +61,7 @@ var CardsListView = Backbone.View.extend({
     */
     createFilter : function(){  
       if(this.collection.length != 0){    
-        var filterList = ['Any', 'name','public_repos','location']; 
+        var filterList = ['Any', 'name','public_repos','location', 'followers']; 
         var div = $("<div class='filter-list'/>"); 
         div.append('<span> Filter By : </span> ');
         var select = $("<select class='custom-select'/>");
@@ -109,7 +109,13 @@ var CardsListView = Backbone.View.extend({
               filtered = data.sort(self.sort_by(filterType, true, function(a){return a}))
               self.collection.reset(filtered);
               self.$el.find('.filter-list select').val('name');
-          }else{
+          }else if(filterType === "followers"){
+			  data = self.collection.toJSON();               
+              filtered = data.sort(self.sort_by(filterType, false, function(a){return a}))
+              self.collection.reset(filtered);
+              self.$el.find('.filter-list select').val('followers');
+		  }
+		  else{
               self.collection.reset(self.data);
               self.$el.find('.filter-list select').val('Any');
 
