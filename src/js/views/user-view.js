@@ -24,7 +24,7 @@
                 self.render();
             },
             error : function(){
-
+				alert('Something Went Wrong.Please try again!');
             }
          });
       }     
